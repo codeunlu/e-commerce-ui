@@ -1,8 +1,8 @@
 import { Product } from "@/utils/type";
 import ProductCard from "./ProductCard";
-import Pagination from "../shared/Pagination";
-import Loading from "../shared/Loading";
-import NoRecordsMessage from "../shared/NoRecordsMessahe";
+import Pagination from "@components/shared/Pagination";
+import Loading from "@components/shared/Loading";
+import ErrorMessage from "@components/shared/ErrorMessage";
 
 type Props = {
   products: Product[];
@@ -31,16 +31,18 @@ export const ProductList = ({
           products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
-        {!products.length && !loading && <NoRecordsMessage />}
+        {!products.length && !loading && (
+          <ErrorMessage text="Kayıtlar Çekilemedi!" />
+        )}
       </div>
       {!loading && (
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        totalPage={totalPage}
-        onPrev={onPrev}
-        onNext={onNext}
-      />
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPage={totalPage}
+          onPrev={onPrev}
+          onNext={onNext}
+        />
       )}
     </div>
   );

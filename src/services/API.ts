@@ -5,5 +5,5 @@ export const ITEMS_PER_PAGE: number = 12;
 
 export const API = axios.create({
   baseURL: DEFAULT_API,
-  timeout: 1000,
+  timeout: 3000,
 });
