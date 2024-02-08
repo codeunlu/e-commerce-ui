@@ -1,4 +1,4 @@
-import { API } from "@services/API";
+import { API, ITEMS_PER_PAGE } from "@services/API";
 import { useState } from "react";
 
 export type HttpMethods = "GET" | "POST" | "PUT" | "DELETE";
@@ -11,11 +11,13 @@ export type CallProps<T> = {
 export type UseCallResponse<T> = {
   call: (method: HttpMethods, body?: any) => void;
   data?: T;
+  totalPage: number;
   loading: boolean;
 };
 
 function useCallApi<T>(endpoint: string): UseCallResponse<T> {
   const [data, setData] = useState<T>();
+  const [totalPage, setTotalPage] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
   const call = (method: HttpMethods, props?: CallProps<T>) => {
@@ -28,6 +30,8 @@ function useCallApi<T>(endpoint: string): UseCallResponse<T> {
     })
       .then((response: any) => {
         setData(response.data);
+        const limitPage = Math.ceil(response.data.length / ITEMS_PER_PAGE);
+        setTotalPage(limitPage);
 
         if (
           response.status !== undefined ||
@@ -37,12 +41,12 @@ function useCallApi<T>(endpoint: string): UseCallResponse<T> {
         }
       })
       .catch((error: any) => {
-        console.error(error);
+        console.error("Hata: ", error);
       })
       .finally(() => setLoading(false));
   };
 
-  return { call, data, loading };
+  return { call, data, totalPage, loading };
 }
 
 export default useCallApi;
