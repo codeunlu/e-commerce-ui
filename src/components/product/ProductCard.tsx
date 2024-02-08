@@ -1,4 +1,4 @@
-import Button from "../product-button/Button";
+import Button from "../button/Button";
 import { Product } from "@/utils/type";
 
 type Props = {
@@ -15,7 +15,7 @@ const ProductCard = ({ product }: Props) => {
       />
       <h2 className="text-xl font-bold mb-2">{product.name}</h2>
       <p className="text-primary mb-2">{product.price}$</p>
-      <Button>Add to cart</Button>
+      <Button addClass="bg-secondary text-white">Add to cart</Button>
     </div>
   );
 };
