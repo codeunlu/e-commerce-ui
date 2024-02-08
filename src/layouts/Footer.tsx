@@ -1,5 +1,5 @@
-import Logo from "@components/Logo";
-import SocialMedia from "@components/SocialMedia";
+import Logo from "@/components/shared/Logo";
+import SocialMedia from "@/components/shared/SocialMedia";
 
 const Footer = () => {
   return (

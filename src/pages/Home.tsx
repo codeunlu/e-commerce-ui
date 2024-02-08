@@ -2,19 +2,8 @@ import useCallApi from "@/hooks/useCallApi";
 import { ITEMS_PER_PAGE } from "@services/API";
 import { Sidebar, Rightbar } from "@layouts/index";
 import { useEffect, useState } from "react";
-import Pagination from "@/components/Pagination";
-import ProductCard from "@/components/ProductCard";
-
-type Product = {
-  createdAt: string;
-  name: string;
-  image: string;
-  price: string;
-  description: string;
-  model: string;
-  brand: string;
-  id: string;
-};
+import { Product } from "@/utils/type";
+import { ProductList } from "@/components/product/ProductList";
 
 const Home = () => {
   const getProducts = useCallApi<Product>("products");
@@ -38,22 +27,29 @@ const Home = () => {
     setFilterProducts(visibleData);
   }, [currentPage, products]);
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+  const onPrev = () => {
+    if (currentPage === 1) return;
+    setCurrentPage((prev) => prev - 1);
+  };
+
+  const onNext = () => {
+    if (currentPage === getProducts.totalPage) return;
+    setCurrentPage((prev) => prev + 1);
   };
 
   return (
     <div className="container mx-auto">
       <div className="flex justify-around gap-2">
         <Sidebar />
-        <div className="flex flex-col gap-y-6 mb-6">
-          <div className="grid grid-cols-3 gap-4">
-          {filterProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-          </div>
-        <Pagination currentPage={currentPage} totalPage={getProducts.totalPage} onPageChange={handlePageChange} />
-        </div>
+        <ProductList
+          products={filterProducts}
+          loading={getProducts.loading}
+          totalPage={getProducts.totalPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          onPrev={onPrev}
+          onNext={onNext}
+        />
         <Rightbar />
       </div>
     </div>

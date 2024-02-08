@@ -1,6 +1,6 @@
-import User from "@components/User";
-import Search from "@components/Search";
-import Logo from "@components/Logo";
+import User from "@/components/shared/User";
+import Search from "@/components/shared/Search";
+import Logo from "@/components/shared/Logo";
 import { FaShoppingCart } from "react-icons/fa";
 
 const Header = () => {
