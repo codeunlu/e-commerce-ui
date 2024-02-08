@@ -27,13 +27,13 @@ function useCallApi<T>(endpoint: string): UseCallResponse<T> {
       data: props?.body,
     })
       .then((response: any) => {
-        if (response !== undefined || response !== null) {
-          setData(response);
-          props?.onSuccess && props.onSuccess(response);
-        }
+        setData(response.data);
 
-        if (response === undefined || response === null) {
-          console.error("Not found!");
+        if (
+          response.status !== undefined ||
+          (response.status === 200 && response.statusText === "OK")
+        ) {
+          props?.onSuccess && props.onSuccess(response.data);
         }
       })
       .catch((error: any) => {

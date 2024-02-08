@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const DEFAULT_API = `http://localhost:3000/`;
+export const DEFAULT_API = `${import.meta.env.VITE_API_URL}`;
 
 export const API = axios.create({
-  baseURL: import.meta.env.API_URL || DEFAULT_API,
+  baseURL: DEFAULT_API,
   timeout: 1000,
 });
