@@ -1,5 +1,6 @@
 import FilterBox from "@/components/filterbox/FilterBox";
 import FilterType from "@/components/filterbox/FilterType";
+import Search from "@/components/shared/Search";
 import React from "react";
 
 type Props = {};
@@ -15,12 +16,14 @@ const SideBar = (props: Props) => {
       </FilterBox>
 
       <FilterBox filterTitle="Brands">
+        <Search placeholder="Search"/>
         <FilterType filterType="Apple" />
         <FilterType filterType="Samsung" />
         <FilterType filterType="Huawei" />
       </FilterBox>
 
       <FilterBox filterTitle="Model">
+        <Search placeholder="Search"/>
         <FilterType filterType="11" />
         <FilterType filterType="12 Pro" />
         <FilterType filterType="13" />
