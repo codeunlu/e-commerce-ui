@@ -24,8 +24,6 @@ const Home = () => {
     getProducts.call("GET", {
       onSuccess: (data: Product[]) => {
         setProducts(data);
-        console.log("product", products);
-        console.log("data", data);
       },
     });
   }, []);
