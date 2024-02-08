@@ -2,6 +2,8 @@ import useCallApi from "@/hooks/useCallApi";
 import { ITEMS_PER_PAGE } from "@services/API";
 import { Sidebar, Rightbar } from "@layouts/index";
 import { useEffect, useState } from "react";
+import Pagination from "@/components/Pagination";
+import ProductCard from "@/components/ProductCard";
 
 type Product = {
   createdAt: string;
@@ -36,25 +38,22 @@ const Home = () => {
     setFilterProducts(visibleData);
   }, [currentPage, products]);
 
-  const handlePrev = () => {
-    if (currentPage === 1) return;
-    setCurrentPage((prev) => prev - 1);
-  };
-
-  const handleNext = () => {
-    console.log("total", getProducts.totalPage);
-    if (currentPage === getProducts.totalPage - 1) return;
-    setCurrentPage((prev) => prev + 1);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
     <div className="container mx-auto">
       <div className="flex justify-around gap-2">
         <Sidebar />
-        <button onClick={handlePrev}>Gerile</button>
-        {filterProducts.length &&
-          filterProducts.map((item) => <div key={item.id}>{item.name}</div>)}
-        <button onClick={handleNext}>İlerle</button>
+        <div className="flex flex-col gap-y-6 mb-6">
+          <div className="grid grid-cols-3 gap-4">
+          {filterProducts.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+          </div>
+        <Pagination currentPage={currentPage} totalPage={getProducts.totalPage} onPageChange={handlePageChange} />
+        </div>
         <Rightbar />
       </div>
     </div>
