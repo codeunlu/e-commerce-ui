@@ -1,13 +1,24 @@
-import { useState } from "react";
 import Button from "@components/button/Button";
-import { Product } from "@/utils/type";
+import { Basket, Product } from "@/utils/type";
+import { addBasket } from "@/store/baskets/basketsSlice";
+import { useDispatch } from "react-redux";
 
 type Props = {
   product: Product;
 };
 
 const ProductDetail = ({ product }: Props) => {
+  const dispatch = useDispatch();
 
+  const handleAddProduct = () => {
+    const basket: Basket = {
+      productId: product.id,
+      productName: product.name,
+      productPrice: Number(product.price),
+      quantity: 1,
+    };
+    dispatch(addBasket(basket));
+  };
   return (
     <div>
       <div className="flex gap-8 h-[600px] shadow-lg shadow-slate-500 py-10 px-4">
@@ -22,15 +33,15 @@ const ProductDetail = ({ product }: Props) => {
             <h1 className="text-2xl text-primary">{product.price}$</h1>
           </div>
           <div className="flex flex-col gap-4">
-            <Button addClass="text-white bg-secondary text-xl">
+            <Button
+              onClick={handleAddProduct}
+              addClass="text-white bg-secondary text-xl"
+            >
               Add to Cart
             </Button>
-            <p
-              className={"text-xl max-h-[260px] overflow-y-auto"}
-            >
+            <p className={"text-xl max-h-[260px] overflow-y-auto"}>
               {product.description}
             </p>
-            
           </div>
         </div>
       </div>

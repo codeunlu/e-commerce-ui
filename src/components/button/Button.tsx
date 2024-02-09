@@ -6,13 +6,10 @@ interface ButtonProps {
   addClass?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, onClick, addClass }) => {
+const Button = ({ children, onClick, addClass }: ButtonProps) => {
   const buttonClasses = `w-full py-2 px-4 rounded-md text-center text-lg ${addClass}`;
   return (
-    <button
-      onClick={onClick}
-      className={buttonClasses}
-    >
+    <button onClick={onClick} className={buttonClasses}>
       {children}
     </button>
   );

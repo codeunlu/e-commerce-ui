@@ -1,16 +1,22 @@
-import ShoppingCart from "@/components/shoppingWallet/ShoppingCart";
-import ProductInCart from "@/components/shoppingWallet/ProductInCart";
+import ShoppingCart from "@components/shopping-wallet/ShoppingCart";
+import ProductInCart from "@components/shopping-wallet/ProductInCart";
+import { basketsDataStore } from "@store/baskets/basketsSlice";
+import { useSelector } from "react-redux";
 
-type Props = {};
+const RightBar = () => {
+  const { baskets, totalAmount } = useSelector(basketsDataStore);
 
-const RightBar = (props: Props) => {
-  return <div className=" flex flex-col gap-y-2 w-[300px] h-screen">
-    <ShoppingCart totalPrice="117000₺">
-      <ProductInCart price="12000₺" product="iphone 11"/>
-      <ProductInCart price="18000₺" product="Lenovo Pc"/>
-      <ProductInCart price="15000₺" product="İphone 12" />
-    </ShoppingCart>
-  </div>;
+
+  return (
+    <div className=" flex flex-col gap-y-2 w-[300px] h-screen">
+      <ShoppingCart totalPrice={totalAmount}>
+        {baskets.length >= 1 &&
+          baskets.map((basket) => (
+            <ProductInCart key={basket.productId} product={basket} />
+          ))}
+      </ShoppingCart>
+    </div>
+  );
 };
 
 export default RightBar;
