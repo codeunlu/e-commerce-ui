@@ -1,12 +1,12 @@
-import { FaShoppingCart } from "react-icons/fa";
+import { IoWalletOutline } from "react-icons/io5";
+
 
 export default function HeaderShopping() {
+  
   return (
-    <span className="relative">
-      <FaShoppingCart className="hover:text-secondary transition-all cursor-pointer w-6 h-6"></FaShoppingCart>
-      <span className="w-5 h-5 grid place-content-center rounded-full bg-secondary absolute -top-2 -right-3 text-white font-bold">
-        0
-      </span>
-    </span>
+    <div className="flex items-center gap-2">
+      <IoWalletOutline className="w-8 h-8"></IoWalletOutline>
+      <div className="text-xl font-bold">117.000$</div>
+    </div>
   );
 }

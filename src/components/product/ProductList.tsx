@@ -3,7 +3,6 @@ import ProductCard from "./ProductCard";
 import Pagination from "@components/shared/Pagination";
 import Loading from "@components/shared/Loading";
 import ErrorMessage from "@components/shared/ErrorMessage";
-import { Link } from "react-router-dom";
 
 type Props = {
   products: Product[];
@@ -13,7 +12,6 @@ type Props = {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   onPrev: () => void;
   onNext: () => void;
-  onItemClick?: () => void;
 };
 
 export const ProductList = ({
@@ -31,9 +29,7 @@ export const ProductList = ({
         {loading && <Loading />}
         {products &&
           products.map((product) => (
-            <Link key={product.id} to={`/product/${product.id}`}>
-              <ProductCard product={product} />
-            </Link>
+              <ProductCard key={product.id} product={product} />
           ))}
         {!products.length && !loading && (
           <ErrorMessage text="Kayıt Bulunamadı!" />

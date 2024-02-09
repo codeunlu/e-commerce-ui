@@ -42,7 +42,7 @@ const Header = () => {
           placeholder={"Search Products"}
           onChange={onChangeSearchInput}
         />
-        <div className="flex gap-6 text-white">
+        <div className="flex gap-8 items-center text-white">
           <HeaderShopping />
           <User />
         </div>
