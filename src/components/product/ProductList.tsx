@@ -36,7 +36,7 @@ export const ProductList = ({
             </Link>
           ))}
         {!products.length && !loading && (
-          <ErrorMessage text="Kayıtlar Çekilemedi!" />
+          <ErrorMessage text="Kayıt Bulunamadı!" />
         )}
       </div>
       {!loading && (

@@ -5,7 +5,7 @@ import { debounce } from "lodash";
 import { useEffect, useRef, useState } from "react";
 import HeaderShopping from "@/components/header-shopping/HeaderShopping";
 import { useDispatch } from "react-redux";
-import { addFilter } from "@/store/products/productsSlice";
+import { addSearch } from "@/store/products/productsSlice";
 
 const Header = () => {
   const [search, setSearch] = useState<string>();
@@ -28,7 +28,7 @@ const Header = () => {
   }
 
   useEffect(() => {
-    dispatch(addFilter(search));
+    dispatch(addSearch(search));
   }, [search, dispatch]);
 
   return (

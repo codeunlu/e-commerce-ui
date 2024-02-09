@@ -21,7 +21,7 @@ const Home = () => {
 
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
-  const { filter } = useSelector(productsDataStore);
+  const { search, filterBrand, filterModel } = useSelector(productsDataStore);
 
   useEffect(() => {
     call("GET", {
@@ -32,23 +32,40 @@ const Home = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const searchText = filter?.toLocaleLowerCase();
-    const filteredProducts = products.filter((item) =>
-      item.name?.toLocaleLowerCase().includes(searchText)
-    );
+    const searchText = search?.toLocaleLowerCase().trim();
+    let filteredProducts: Product[] = products;
+
+    if (searchText?.length) {
+      filteredProducts = filteredProducts.filter((item) =>
+        item.name?.toLocaleLowerCase().includes(searchText)
+      );
+    }
+
+    if (filterBrand?.length) {
+      filteredProducts = filteredProducts.filter((item) =>
+        item.brand?.toLocaleLowerCase().includes(filterBrand)
+      );
+    }
+
+    if (filterModel?.length) {
+      filteredProducts = filteredProducts.filter((item) =>
+        item.model?.toLocaleLowerCase().includes(filterModel)
+      );
+    }
+
     setFilterProducts(filteredProducts);
     setFilterTotalPage(LIMIT_PAGE(filteredProducts.length));
-  }, [filter, products]);
+  }, [search, products, filterBrand, filterModel]);
 
   useEffect(() => {
-    if (filter === undefined || filter?.length === 0) {
+    if (search === undefined || search?.length === 0) {
       const visibleData = products.slice(
         (currentPage - 1) * ITEMS_PER_PAGE,
         currentPage * ITEMS_PER_PAGE
       );
       setFilterProducts(visibleData);
     }
-  }, [filter, currentPage, products, dispatch]);
+  }, [search, currentPage, products, dispatch]);
 
   const onPrev = () => {
     if (currentPage === 1) return;
@@ -67,7 +84,7 @@ const Home = () => {
         <ProductList
           products={filterProducts || []}
           loading={loading}
-          totalPage={filterTotalPage > 0 ? filterTotalPage : totalPage}
+          totalPage={filterTotalPage > 0 ? filterTotalPage : 1}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           onPrev={onPrev}

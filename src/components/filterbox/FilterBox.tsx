@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import Button from "@components/button/Button";
 
 type FilterBoxProps = {
   children: ReactNode;
@@ -13,7 +12,6 @@ const FilterBox: React.FC<FilterBoxProps> = ({ children, filterTitle }) => {
       <div className="border p-4 mb-4 rounded-md shadow-md">
         <div className="flex flex-col gap-4 mb-2">
           <div className="flex flex-col gap-2">{children}</div>
-          <Button addClass="bg-primary text-white">Filtrele</Button>
         </div>
       </div>
     </div>

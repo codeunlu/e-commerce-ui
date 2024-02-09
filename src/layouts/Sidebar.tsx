@@ -1,19 +1,52 @@
-import FilterBox from "@/components/filterbox/FilterBox";
-import FilterType from "@/components/filterbox/FilterType";
-import { productsDataStore } from "@/store/products/productsSlice";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import Select from 'react-select';
-
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
+import Button from "@components/button/Button";
+import FilterBox from "@components/filterbox/FilterBox";
+import FilterType from "@components/filterbox/FilterType";
+import {
+  addFilterBrand,
+  addFilterModel,
+  productsDataStore,
+} from "@store/products/productsSlice";
+import { Option } from "@/utils/type";
+import { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Select from "react-select";
 
 const SideBar = () => {
   const { brands, models } = useSelector(productsDataStore);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const dispatch = useDispatch();
+  const [brandFilter, setBrandFilter] = useState<string>("");
+  const [modelFilter, setModelFilter] = useState<string>("");
+
+  const onChangeBrands = useCallback((items: any) => {
+    const filter = createFilterString(items);
+    setBrandFilter(filter);
+  }, []);
+
+  const onChangeModels = useCallback((items: any) => {
+    const filter = createFilterString(items);
+    setModelFilter(filter);
+  }, []);
+
+  const createFilterString = (items: any) => {
+    let filter = "";
+    items?.forEach((element: Option, index: number) => {
+      if (index === items.length - 1) {
+        filter += `${element.value}`;
+        return;
+      }
+
+      filter += `${element.value},`;
+    });
+    return filter;
+  };
+
+  const handlerBrandFilter = useCallback(() => {
+    dispatch(addFilterBrand(brandFilter));
+  }, [brandFilter, dispatch]);
+
+  const handlerModelFilter = useCallback(() => {
+    dispatch(addFilterModel(modelFilter));
+  }, [modelFilter, dispatch]);
 
   return (
     <div className="w-[300px] h-screen">
@@ -25,27 +58,35 @@ const SideBar = () => {
       </FilterBox>
 
       <FilterBox filterTitle="Brands">
-        <div className="max-h-[300px] overflow-y-auto">
-        {brands.map((brand) => (
-          <FilterType filterType={brand} />
-        ))}
-        </div>
+        <Select
+          isMulti
+          name="colors"
+          options={brands}
+          isLoading={brands.length > 0 ? false : true}
+          onChange={onChangeBrands}
+        />
+        <Button
+          onClick={handlerBrandFilter}
+          addClass="w-full py-2 px-4 rounded-md text-center text-lg text-white bg-primary"
+        >
+          Filter
+        </Button>
       </FilterBox>
 
       <FilterBox filterTitle="Model">
-      <div className="max-h-[300px] overflow-y-auto">
-        {models.map((model) => (
-          <FilterType filterType={model} />
-        ))}
-      </div>
-      </FilterBox>
-
-      <FilterBox filterTitle="Select">
-      <Select
-        defaultValue={selectedOption}
-        onChange={setSelectedOption}
-        options={options}
-      />
+        <Select
+          isMulti
+          name="colors"
+          options={models}
+          isLoading={models.length > 0 ? false : true}
+          onChange={onChangeModels}
+        />
+        <Button
+          onClick={handlerModelFilter}
+          addClass="w-full py-2 px-4 rounded-md text-center text-lg text-white bg-primary"
+        >
+          Filter
+        </Button>
       </FilterBox>
     </div>
   );
