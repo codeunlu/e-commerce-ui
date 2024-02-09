@@ -11,17 +11,20 @@ import {
   productsDataStore,
   selectProducts,
 } from "@/store/products/productsSlice";
+import { LIMIT_PAGE } from "@/utils/content";
 
 const Home = () => {
-  const getProducts = useCallApi<Product>("products");
+  const { call, loading, totalPage } = useCallApi<Product>("products");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [filterProducts, setFilterProducts] = useState<Product[]>([]);
+  const [filterTotalPage, setFilterTotalPage] = useState<number>(0);
+
   const dispatch = useDispatch();
   const products = useSelector(selectProducts);
   const { filter } = useSelector(productsDataStore);
 
   useEffect(() => {
-    getProducts.call("GET", {
+    call("GET", {
       onSuccess: (data: Product[]) => {
         dispatch(addProducts(data));
       },
@@ -34,15 +37,18 @@ const Home = () => {
       item.name?.toLocaleLowerCase().includes(searchText)
     );
     setFilterProducts(filteredProducts);
+    setFilterTotalPage(LIMIT_PAGE(filteredProducts.length));
   }, [filter, products]);
 
   useEffect(() => {
-    const visibleData = products.slice(
-      (currentPage - 1) * ITEMS_PER_PAGE,
-      currentPage * ITEMS_PER_PAGE
-    );
-    setFilterProducts(visibleData);
-  }, [currentPage, products, dispatch]);
+    if (filter === undefined || filter?.length === 0) {
+      const visibleData = products.slice(
+        (currentPage - 1) * ITEMS_PER_PAGE,
+        currentPage * ITEMS_PER_PAGE
+      );
+      setFilterProducts(visibleData);
+    }
+  }, [filter, currentPage, products, dispatch]);
 
   const onPrev = () => {
     if (currentPage === 1) return;
@@ -50,7 +56,7 @@ const Home = () => {
   };
 
   const onNext = () => {
-    if (currentPage === getProducts.totalPage) return;
+    if (currentPage === totalPage) return;
     setCurrentPage((prev) => prev + 1);
   };
 
@@ -60,8 +66,8 @@ const Home = () => {
         <Sidebar />
         <ProductList
           products={filterProducts || []}
-          loading={getProducts.loading}
-          totalPage={getProducts.totalPage}
+          loading={loading}
+          totalPage={filterTotalPage > 0 ? filterTotalPage : totalPage}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           onPrev={onPrev}
