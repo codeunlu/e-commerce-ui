@@ -3,7 +3,7 @@ import { Product } from "@/utils/type";
 
 type Props = {
   product: Product;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const ProductCard = ({ product, onClick }: Props) => {

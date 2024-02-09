@@ -13,7 +13,7 @@ type Props = {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   onPrev: () => void;
   onNext: () => void;
-  onItemClick: () => void;
+  onItemClick?: () => void;
 };
 
 export const ProductList = ({
@@ -24,7 +24,6 @@ export const ProductList = ({
   setCurrentPage,
   onPrev,
   onNext,
-  onItemClick
 }: Props) => {
   return (
     <div className="flex flex-col gap-y-6 mb-6">
@@ -33,7 +32,7 @@ export const ProductList = ({
         {products &&
           products.map((product) => (
             <Link key={product.id} to={`/product/${product.id}`}>
-            <ProductCard  product={product} onClick={() => onItemClick()}/>
+              <ProductCard product={product} />
             </Link>
           ))}
         {!products.length && !loading && (
