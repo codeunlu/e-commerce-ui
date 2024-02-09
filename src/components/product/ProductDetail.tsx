@@ -7,13 +7,7 @@ type Props = {
 };
 
 const ProductDetail = ({ product }: Props) => {
-  const [showReadMore, setShowReadMore] = useState(false);
 
-  const toggleReadMore = () => {
-    setShowReadMore(!showReadMore);
-  };
-
-  const isTruncated = product.description.length > 100;
   return (
     <div>
       <div className="flex gap-8 h-[600px] shadow-lg shadow-slate-500 py-10 px-4">
@@ -32,22 +26,11 @@ const ProductDetail = ({ product }: Props) => {
               Add to Cart
             </Button>
             <p
-              className={`text-xl ${
-                showReadMore
-                  ? "overflow-auto max-h-[300px]"
-                  : "overflow-hidden max-h-[200px]"
-              } transition-height duration-500 ease-in-out`}
+              className={"text-xl max-h-[260px] overflow-y-auto"}
             >
               {product.description}
             </p>
-            {isTruncated && (
-              <button
-                onClick={toggleReadMore}
-                className="text-primary font-bold cursor-pointer"
-              >
-                {showReadMore ? "Read Less" : "Read More"}
-              </button>
-            )}
+            
           </div>
         </div>
       </div>

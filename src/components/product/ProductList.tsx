@@ -27,7 +27,7 @@ export const ProductList = ({
 }: Props) => {
   return (
     <div className="flex flex-col gap-y-6 mb-6">
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-4">
         {loading && <Loading />}
         {products &&
           products.map((product) => (

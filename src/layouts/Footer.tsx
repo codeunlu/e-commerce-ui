@@ -3,7 +3,7 @@ import SocialMedia from "@/components/shared/SocialMedia";
 
 const Footer = () => {
   return (
-    <div className="h-20 w-full bg-primary flex items-center ">
+    <div className="h-20 w-full min-w-[1210px] bg-primary flex items-center ">
       <div className="mx-auto container flex justify-between">
         <div>
           <Logo />

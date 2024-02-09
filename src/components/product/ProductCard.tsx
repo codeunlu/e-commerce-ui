@@ -12,7 +12,7 @@ const ProductCard = ({ product, onClick }: Props) => {
       <img
         src={product.image}
         alt={product.name}
-        className="mb-2 rounded-md w-64 h-40 object-cover"
+        className="mb-2 rounded-md lg:w-64 h-40 object-cover w-full"
         onClick={onClick}
       />
       <h2 className="text-xl font-bold mb-2">{product.name}</h2>

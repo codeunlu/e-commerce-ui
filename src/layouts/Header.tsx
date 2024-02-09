@@ -32,7 +32,7 @@ const Header = () => {
   }, [search, dispatch]);
 
   return (
-    <div className="h-[5.5rem] w-full bg-primary mb-3 flex items-center">
+    <div className="h-[5.5rem] w-full min-w-[1210px] bg-primary mb-3 flex items-center">
       <div className="mx-auto container flex justify-between">
         <div className="hidden lg:flex">
           <Logo />

@@ -1,8 +1,8 @@
-import Products from "@components/product/ProductDetail";
-import ErrorMessage from "@components/shared/ErrorMessage";
-import Loading from "@components/shared/Loading";
-import useCallApi from "@hooks/useCallApi";
-import RightBar from "@layouts/RightBar";
+import Products from "@/components/product/ProductDetail";
+import ErrorMessage from "@/components/shared/ErrorMessage";
+import Loading from "@/components/shared/Loading";
+import useCallApi from "@/hooks/useCallApi";
+import RightBar from "@/layouts/RightBar";
 import { Product } from "@/utils/type";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -23,7 +23,7 @@ const ProductDetail = () => {
 
   return (
     <div className="mx-auto container">
-      <div className="flex gap-6">
+      <div className="flex min-w-[1210px] gap-6">
         <div className="flex flex-col">
           {loading && <Loading />}
           {product === undefined && !loading && (
