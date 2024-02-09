@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import useCallApi from "@/hooks/useCallApi";
+import useCallApi from "@hooks/useCallApi";
 import { ITEMS_PER_PAGE } from "@services/API";
 import { Sidebar, Rightbar } from "@layouts/index";
 import { useEffect, useState } from "react";
 import { Product } from "@/utils/type";
-import { ProductList } from "@/components/product/ProductList";
+import { ProductList } from "@components/product/ProductList";
 
 import {
   addProducts,

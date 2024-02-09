@@ -1,12 +1,12 @@
-import React, { ReactNode } from 'react';
-import Button from '../button/Button';
+import React, { ReactNode } from "react";
+import Button from "@components/button/Button";
 
 type FilterBoxProps = {
-  children: ReactNode; 
+  children: ReactNode;
   filterTitle: string;
 };
 
-const FilterBox: React.FC<FilterBoxProps> = ({ children,filterTitle }) => {
+const FilterBox: React.FC<FilterBoxProps> = ({ children, filterTitle }) => {
   return (
     <div>
       <h2 className="text-lg mb-2">{filterTitle}</h2>
