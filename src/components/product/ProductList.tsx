@@ -3,6 +3,7 @@ import ProductCard from "./ProductCard";
 import Pagination from "@components/shared/Pagination";
 import Loading from "@components/shared/Loading";
 import ErrorMessage from "@components/shared/ErrorMessage";
+import { Link } from "react-router-dom";
 
 type Props = {
   products: Product[];
@@ -12,6 +13,7 @@ type Props = {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   onPrev: () => void;
   onNext: () => void;
+  onItemClick: () => void;
 };
 
 export const ProductList = ({
@@ -22,6 +24,7 @@ export const ProductList = ({
   setCurrentPage,
   onPrev,
   onNext,
+  onItemClick
 }: Props) => {
   return (
     <div className="flex flex-col gap-y-6 mb-6">
@@ -29,7 +32,9 @@ export const ProductList = ({
         {loading && <Loading />}
         {products &&
           products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <Link key={product.id} to={`/product/${product.id}`}>
+            <ProductCard  product={product} onClick={() => onItemClick()}/>
+            </Link>
           ))}
         {!products.length && !loading && (
           <ErrorMessage text="Kayıtlar Çekilemedi!" />
