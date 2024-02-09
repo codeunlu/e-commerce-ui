@@ -1,11 +1,11 @@
 import FilterBox from "@/components/filterbox/FilterBox";
 import FilterType from "@/components/filterbox/FilterType";
-import Search from "@/components/shared/Search";
-import React from "react";
+import { productsDataStore } from "@/store/products/productsSlice";
+import { useSelector } from "react-redux";
 
-type Props = {};
+const SideBar = () => {
+  const { brands, models } = useSelector(productsDataStore);
 
-const SideBar = (props: Props) => {
   return (
     <div className="w-[300px] h-screen">
       <FilterBox filterTitle="Sort by">
@@ -16,16 +16,15 @@ const SideBar = (props: Props) => {
       </FilterBox>
 
       <FilterBox filterTitle="Brands">
-        <FilterType filterType="Apple" />
-        <FilterType filterType="Samsung" />
-        <FilterType filterType="Huawei" />
+        {brands.map((brand) => (
+          <FilterType filterType={brand} />
+        ))}
       </FilterBox>
 
       <FilterBox filterTitle="Model">
-        <FilterType filterType="11" />
-        <FilterType filterType="12 Pro" />
-        <FilterType filterType="13" />
-        <FilterType filterType="13 Pro Max" />
+        {models.map((model) => (
+          <FilterType filterType={model} />
+        ))}
       </FilterBox>
     </div>
   );

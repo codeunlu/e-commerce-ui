@@ -4,11 +4,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface ProductsState {
   products: Product[];
+  brands: string[];
+  models: string[];
   filter: string;
 }
 
 const initialState: ProductsState = {
   products: [],
+  brands: [],
+  models: [],
   filter: "",
 };
 
@@ -18,6 +22,8 @@ export const productsSlice = createSlice({
   reducers: {
     addProducts: (state, action) => {
       state.products = action.payload;
+      state.brands = action.payload.map((item: Product) => item.brand);
+      state.models = action.payload.map((item: Product) => item.model);
     },
     addFilter: (state, action) => {
       state.filter = action.payload;
