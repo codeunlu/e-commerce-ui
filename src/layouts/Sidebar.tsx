@@ -1,15 +1,22 @@
 import Button from "@components/button/Button";
 import FilterBox from "@components/filterbox/FilterBox";
-import FilterType from "@components/filterbox/FilterType";
 import {
   addFilterBrand,
   addFilterModel,
   productsDataStore,
+  sortByProduct,
 } from "@store/products/productsSlice";
 import { Option } from "@/utils/type";
 import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
+
+const orderOptions = [
+  { value: "dateasc", label: "Old to New" },
+  { value: "datedesc", label: "New to Old" },
+  { value: "priceasc", label: "Price Low to High" },
+  { value: "pricedesc", label: "Price High to Low" },
+];
 
 const SideBar = () => {
   const { brands, models } = useSelector(productsDataStore);
@@ -26,6 +33,13 @@ const SideBar = () => {
     const filter = createFilterString(items);
     setModelFilter(filter);
   }, []);
+
+  const onChangeOrder = useCallback(
+    (item: any) => {
+      dispatch(sortByProduct(item.value));
+    },
+    [dispatch]
+  );
 
   const createFilterString = (items: any) => {
     let filter = "";
@@ -51,16 +65,17 @@ const SideBar = () => {
   return (
     <div className="w-[300px] h-screen">
       <FilterBox filterTitle="Sort by">
-        <FilterType filterType="Old to new" />
-        <FilterType filterType="New to old" />
-        <FilterType filterType="Price Low to High" />
-        <FilterType filterType="Price High to Low" />
+        <Select
+          name="orderby"
+          options={orderOptions}
+          onChange={onChangeOrder}
+        />
       </FilterBox>
 
       <FilterBox filterTitle="Brands">
         <Select
           isMulti
-          name="colors"
+          name="brands"
           options={brands}
           isLoading={brands.length > 0 ? false : true}
           onChange={onChangeBrands}
@@ -76,7 +91,7 @@ const SideBar = () => {
       <FilterBox filterTitle="Model">
         <Select
           isMulti
-          name="colors"
+          name="models"
           options={models}
           isLoading={models.length > 0 ? false : true}
           onChange={onChangeModels}

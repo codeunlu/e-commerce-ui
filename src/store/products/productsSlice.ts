@@ -1,6 +1,7 @@
 import { Option, Product } from "@/utils/type";
 import { RootState } from "@/store/store";
 import { createSlice } from "@reduxjs/toolkit";
+import { sortBy } from "lodash";
 interface ProductsState {
   products: Product[];
   brands: Option[];
@@ -57,11 +58,40 @@ export const productsSlice = createSlice({
     addFilterModel: (state, action) => {
       state.filterModel = action.payload;
     },
+    sortByProduct: (state, action) => {
+      switch (action.payload) {
+        case "dateasc":
+          state.products.sort(function (a, b) {
+            return a.createdAt > b.createdAt ? 1 : -1;
+          });
+          break;
+        case "datedesc":
+          state.products.sort(function (a, b) {
+            return b.createdAt > a.createdAt ? 1 : -1;
+          });
+          break;
+        case "priceasc":
+          state.products.sort(function (a, b) {
+            return a.price > b.price ? 1 : -1;
+          });
+          break;
+        case "pricedesc":
+          state.products.sort(function (a, b) {
+            return b.price > a.price ? 1 : -1;
+          });
+          break;
+      }
+    },
   },
 });
 
-export const { addProducts, addSearch, addFilterBrand, addFilterModel } =
-  productsSlice.actions;
+export const {
+  addProducts,
+  addSearch,
+  addFilterBrand,
+  addFilterModel,
+  sortByProduct,
+} = productsSlice.actions;
 export const selectProducts = (state: RootState) => state.products.products;
 export const productsDataStore = (state: RootState) => state.products;
 export default productsSlice.reducer;
