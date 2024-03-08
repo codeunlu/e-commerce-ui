@@ -24,7 +24,7 @@ export const ProductList = ({
   onNext,
 }: Props) => {
   return (
-    <div className="flex flex-col gap-y-6 mb-6">
+    <div className="flex flex-col justify-between gap-y-6 mb-6">
       <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-x-4 gap-y-6">
         {loading && <Loading />}
         {products &&
