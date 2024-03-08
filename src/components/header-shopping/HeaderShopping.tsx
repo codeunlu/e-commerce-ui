@@ -6,7 +6,7 @@ export default function HeaderShopping() {
   const { totalAmount } = useSelector(basketsDataStore);
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 w-36">
       <IoWalletOutline className="w-8 h-8"></IoWalletOutline>
       <div className="text-xl font-bold">
         {new Intl.NumberFormat("tr-TR", {

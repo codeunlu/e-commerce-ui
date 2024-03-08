@@ -1,4 +1,5 @@
 import React from "react";
+import { MdNavigateNext,MdNavigateBefore } from "react-icons/md";
 
 type PaginationProps = {
   currentPage: number;
@@ -22,15 +23,15 @@ const Pagination = ({
     );
 
     return (
-      <div className="flex space-x-2">
+      <div className="flex space-x-3">
         {pageNumbers.map((page) => (
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={`px-3 py-1 focus:outline-none ${
+            className={`px-3 py-1 rounded-full ${
               currentPage === page
                 ? "bg-blue-500 text-white font-bold"
-                : "bg-gray-300 hover:bg-gray-400 text-gray-700"
+                : "border border-gray-400 hover:bg-gray-200 text-gray-700"
             }`}
           >
             {page}
@@ -41,29 +42,29 @@ const Pagination = ({
   };
 
   return (
-    <div className="flex items-center justify-center space-x-2">
+    <div className="flex items-center justify-center space-x-3">
       <button
         onClick={onPrev}
         disabled={currentPage === 1}
-        className={`px-3 py-1 focus:outline-none ${
+        className={`px-2 py-2 focus:outline-none rounded-full ${
           currentPage === 1
             ? "bg-gray-300 text-gray-700 cursor-not-allowed"
             : "bg-blue-500 text-white"
         }`}
       >
-        Gerile
+        <MdNavigateBefore className="w-6 h-6"/>
       </button>
       {renderPageNumbers()}
       <button
         onClick={onNext}
         disabled={currentPage === totalPage}
-        className={`px-3 py-1 focus:outline-none ${
+        className={`px-2 py-2 focus:outline-none rounded-full ${
           currentPage === totalPage
             ? "bg-gray-300 text-gray-700 cursor-not-allowed"
             : "bg-blue-500 text-white"
         }`}
       >
-        İlerle
+        <MdNavigateNext className="w-6 h-6"/>
       </button>
     </div>
   );

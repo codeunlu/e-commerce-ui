@@ -22,17 +22,15 @@ const ProductDetail = () => {
   }, [id]);
 
   return (
-    <div className="mx-auto container">
-      <div className="flex min-w-[1210px] gap-6">
-        <div className="flex flex-col">
-          {loading && <Loading />}
-          {product === undefined && !loading && (
-            <ErrorMessage text="Kayıt bulunamadı!" />
-          )}
-          {product && <Products product={product} />}
-        </div>
-        <RightBar />
+    <div className="mx-auto container flex justify-between min-w-[1210px] gap-6">
+      <div className="flex flex-col">
+        {loading && <Loading />}
+        {product === undefined && !loading && (
+          <ErrorMessage text="Kayıt bulunamadı!" />
+        )}
+        {product && <Products product={product} />}
       </div>
+      <RightBar />
     </div>
   );
 };

@@ -78,8 +78,8 @@ const Home = () => {
   };
 
   return (
-    <div className="container mx-auto min-w-[1210px]">
-      <div className="flex justify-around gap-2">
+    <div className="container mx-auto min-h-screen min-w-[1210px]">
+      <div className="flex justify-between">
         <Sidebar />
         <ProductList
           products={filterProducts || []}

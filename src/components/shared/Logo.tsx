@@ -1,9 +1,9 @@
+import { SlBasket } from "react-icons/sl";
+
 const Logo = () => {
   return (
     <a href="/">
-    <div className="text-4xl font-bold tracking-wider text-white">
-      Eteration
-    </div>
+    <img src="/logo1.png" className="w-52 h-36"/>
     </a>
   );
 };

@@ -32,8 +32,8 @@ const Header = () => {
   }, [search, dispatch]);
 
   return (
-    <div className="h-[5.5rem] w-full min-w-[1210px] bg-primary mb-3 flex items-center">
-      <div className="mx-auto container flex justify-between">
+    <div className="w-full min-w-[1210px] bg-gradient-to-tr from-blue-600 to-blue-900 mb-8">
+      <div className="mx-auto container flex justify-between items-center">
         <div className="hidden lg:flex">
           <Logo />
         </div>
@@ -42,7 +42,7 @@ const Header = () => {
           placeholder={"Search Products"}
           onChange={onChangeSearchInput}
         />
-        <div className="flex gap-8 items-center text-white">
+        <div className="flex gap-10 w-[300px] items-center text-white">
           <HeaderShopping />
           <User />
         </div>
