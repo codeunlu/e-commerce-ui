@@ -1,7 +1,6 @@
 import { Option, Product } from "@/utils/type";
 import { RootState } from "@/store/store";
 import { createSlice } from "@reduxjs/toolkit";
-import { sortBy } from "lodash";
 interface ProductsState {
   products: Product[];
   brands: Option[];
